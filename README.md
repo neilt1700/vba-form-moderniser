@@ -15,4 +15,5 @@ You should also replace any command buttons with labels, the caption on the labe
 ## How it works in more detail
 The code picks up all labels which have a specific prefix to their names ("LabelButton") and uses those to create the label controls. Each control is made up of a border layer, background layer, text layer (having the caption from the original label), and on top, a transparent control layer (which receives mouse events and being the original label). Mouse up/down/move events are used to control the look of the buttons.
 
-
+## Office Programmes
+While the code is in a PowerPoint file it should work other Office programmes including Excel and Word. The colour scheme for form controls that appear in the workspace of all these programmes is the same (blue).
