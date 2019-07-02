@@ -45,17 +45,22 @@ Public Function CreateCKeyDownResponder(ByRef ctlControl As control, _
 End Function
 
 Public Function CreateCLabelControls(ByRef ctlsControls As MSForms.Controls, _
-                                     ByVal stIdentifier As String) As CLabelControls
+                                     ByVal stIdentifier As String, _
+                                     ByRef arrLabelControlsOrder() As String) As CLabelControls
+
   Set CreateCLabelControls = New CLabelControls
   CreateCLabelControls.InitiateProperties ctlsControls:=ctlsControls, _
-                                          stIdentifier:=stIdentifier
+                                          stIdentifier:=stIdentifier, _
+                                          arrLabelControlsOrder:=arrLabelControlsOrder
 End Function
 
 Public Function CreateCLabelControlsManager(ByRef ctlsControls As MSForms.Controls, _
-                                            Optional ByVal stIdentifier As String) As CLabelControlsManager
+                                            ByVal stIdentifier As String, _
+                                            ByRef arrLabelControlsOrder() As String) As CLabelControlsManager
   Set CreateCLabelControlsManager = New CLabelControlsManager
   CreateCLabelControlsManager.InitiateProperties ctlsControls:=ctlsControls, _
-                                                 stIdentifier:=stIdentifier
+                                                 stIdentifier:=stIdentifier, _
+                                                 arrLabelControlsOrder:=arrLabelControlsOrder
 End Function
 
 

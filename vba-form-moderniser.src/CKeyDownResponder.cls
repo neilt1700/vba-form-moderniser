@@ -14,29 +14,64 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-' Responds to Frame move events - to reset label button states as necessary.
-
-' TODO: completion of adding these events.
-
-'Public WithEvents OptionButtonEvents As MSForms.OptionButton
-'Public WithEvents ScrollBarEvents As MSForms.ScrollBar
-'Public WithEvents ScrollBarEvents As MSForms.SpinButton
-
-'Public WithEvents ScrollBarEvents As MSForms.ListBox
-Public WithEvents TextBoxEvents As MSForms.TextBox
-Attribute TextBoxEvents.VB_VarHelpID = -1
+Public WithEvents OptionButtonEvents As MSForms.OptionButton
+Attribute OptionButtonEvents.VB_VarHelpID = -1
+Public WithEvents ScrollBarEvents As MSForms.ScrollBar
+Attribute ScrollBarEvents.VB_VarHelpID = -1
+Public WithEvents SpinButtonEvents As MSForms.SpinButton
+Attribute SpinButtonEvents.VB_VarHelpID = -1
+Public WithEvents ListBoxEvents As MSForms.ListBox
+Attribute ListBoxEvents.VB_VarHelpID = -1
+Public WithEvents TabStripEvents As MSForms.TabStrip
+Attribute TabStripEvents.VB_VarHelpID = -1
 Public WithEvents CheckBoxEvents As MSForms.CheckBox
 Attribute CheckBoxEvents.VB_VarHelpID = -1
+Public WithEvents TextBoxEvents As MSForms.TextBox
+Attribute TextBoxEvents.VB_VarHelpID = -1
 
 Private p_ctlControl As control
 Private p_oLabelControls As CLabelControls
 Private p_ctlsControls As Controls
 
-Private Sub TextBoxEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+Private Sub OptionButtonEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
   MyEventsKeyDown KeyCode, Shift
 End Sub
 
-Private Sub TextBoxEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+Private Sub OptionButtonEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+  MyEventsMouseDown Button, Shift, X, Y
+End Sub
+
+Private Sub ScrollBarEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+  MyEventsKeyDown KeyCode, Shift
+End Sub
+
+'No mousedown event for scrollbar events.
+'Private Sub ScrollBarEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+'  MyEventsMouseDown Button, Shift, X, Y
+'End Sub
+
+Private Sub SpinButtonEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+  MyEventsKeyDown KeyCode, Shift
+End Sub
+
+'No mousedown event for spinbutton events.
+'Private Sub SpinButtonEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+'  MyEventsMouseDown Button, Shift, X, Y
+'End Sub
+
+Private Sub ListBoxEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+  MyEventsKeyDown KeyCode, Shift
+End Sub
+
+Private Sub ListBoxEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+  MyEventsMouseDown Button, Shift, X, Y
+End Sub
+
+Private Sub TabStripEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+  MyEventsKeyDown KeyCode, Shift
+End Sub
+
+Private Sub TabStripEvents_MouseDown(ByVal Index As Long, ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
   MyEventsMouseDown Button, Shift, X, Y
 End Sub
 
@@ -48,6 +83,13 @@ Private Sub CheckBoxEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Int
   MyEventsMouseDown Button, Shift, X, Y
 End Sub
 
+Private Sub TextBoxEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+  MyEventsKeyDown KeyCode, Shift
+End Sub
+
+Private Sub TextBoxEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+  MyEventsMouseDown Button, Shift, X, Y
+End Sub
 
 Private Sub MyEventsKeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
   If p_oLabelControls.LabelControls.Count > 0 Then
@@ -82,13 +124,11 @@ Private Sub MyEventsKeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift 
       End If
     End If
   End If
-  
 End Sub
 
 Private Sub MyEventsMouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
   FormModerniserModule.TabOverflow = 0
 End Sub
-
 
 Public Sub InitiateProperties(ByRef ctlControl As control, _
                               ByRef oLabelControls As CLabelControls, _
@@ -102,8 +142,7 @@ Public Sub InitiateProperties(ByRef ctlControl As control, _
     Set Me.TextBoxEvents = ctlControl
     FormModerniserModule.LastTabbedControl = ctlControl.Name
   End If
-
+  
 End Sub
-
 
 

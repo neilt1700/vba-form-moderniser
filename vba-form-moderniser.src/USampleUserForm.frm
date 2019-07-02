@@ -55,9 +55,16 @@ Public Sub InitiateProperties()
   
   ' This converts labels (with the prefix "LabelButton") into modern controls.
   ' The default button is the one that will run if enter is pressed.
+    
+  ' These must be re/initialised here.
   FormModerniserModule.ActiveButton = vbNullString
   FormModerniserModule.DefaultButton = "LabelButtonCancel"
+  
+  Dim arrLabelControlsOrder() As String
+  arrLabelControlsOrder = Split("LabelButtonOK LabelButtonCancel")
+  
   Set p_oLabelControlsManager = Factory.CreateCLabelControlsManager(Me.Controls, _
-                                                                    "LabelButton")
+                                                                    "LabelButton", _
+                                                                    arrLabelControlsOrder)
 
 End Sub

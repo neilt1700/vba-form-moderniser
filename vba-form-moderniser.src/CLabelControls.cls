@@ -15,6 +15,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private p_colLabelControls As Collection
+Private p_arrLabelControlsOrder() As String
 Private p_ctlsControls As Controls
 
 Public Property Get LabelControls() As Collection
@@ -24,14 +25,32 @@ End Property
 Public Sub CreateLayeredControls(Optional ByVal stNamePrefix As String)
 
   Dim ctlControl As control
+  Dim colLabelControls As Collection
+  Set colLabelControls = New Collection
 
   For Each ctlControl In p_ctlsControls
     If TypeName(ctlControl) = "Label" Then
       If Mid(ctlControl.Name, 1, Len(stNamePrefix)) = stNamePrefix Then
-        p_colLabelControls.Add Factory.CreateCLabelControl(p_ctlsControls, ctlControl), ctlControl.Name
+        colLabelControls.Add Factory.CreateCLabelControl(p_ctlsControls, ctlControl), ctlControl.Name
       End If
     End If
   Next ctlControl
+  
+  Set p_colLabelControls = New Collection
+  Dim stLabelControl As Variant
+
+  For Each stLabelControl In p_arrLabelControlsOrder
+    If KeyExistsInCollection(colLabelControls, stLabelControl) Then
+      p_colLabelControls.Add colLabelControls(stLabelControl), stLabelControl
+      colLabelControls.Remove stLabelControl
+    End If
+  Next stLabelControl
+
+  ' Add on any remaining items that weren't in the label control order list:
+  Dim oLabelControl As CLabelControl
+  For Each oLabelControl In colLabelControls
+    p_colLabelControls.Add oLabelControl, oLabelControl.LabelName
+  Next oLabelControl
 
 End Sub
 
@@ -65,9 +84,11 @@ Public Sub UpdateControlButtonState(Optional ByVal stControlName As String, _
 End Sub
 
 Public Sub InitiateProperties(ByRef ctlsControls As MSForms.Controls, _
-                              Optional ByVal stIdentifier As String)
+                              ByVal stIdentifier As String, _
+                              ByRef arrLabelControlsOrder() As String)
 
-  Set p_colLabelControls = New Collection
+
+  p_arrLabelControlsOrder = arrLabelControlsOrder
   
   Set p_ctlsControls = ctlsControls
   CreateLayeredControls stIdentifier

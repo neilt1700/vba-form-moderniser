@@ -4,7 +4,7 @@ Attribute VB_Name = "FormModerniserModule"
 ' project.
 ' Contact: tap@commtap.org
 
-' Note font size is not settable programmatically it seems.
+' Note buttons in office have a standard height and width.
 
 Option Explicit
 
@@ -27,7 +27,7 @@ Public gb_colCurrentUserForms As Collection
 ' General styling
 Public Const g_lngFORE_COLOUR As Long = &H464646
 Public Const g_stFONT_NAME As String = "Calibri"
-Public Const g_lngFONT_SIZE = 10 ' This has to be set manually on forms:
+Public Const g_lngFONT_SIZE = 10
 Public Const g_lngFORM_BACK_COLOUR = &HE6E6E6
 Public Const g_lngBACK_COLOUR = &HFFFFFF
 Public Const g_lngBORDER_COLOUR As Long = &HA9A9A9
@@ -106,24 +106,11 @@ Public Property Get LastTabbedControl() As String
   LastTabbedControl = m_stLastTabbedControl
 End Property
 
-' TODO
-' Apply Styles Something Like This:
-Public Sub ApplyStyles(ByRef ctlControl As control, ByVal stControlType As String)
-
-  Select Case stControlType
-    Case "Label"
-     ' ctlControl.BorderColor = whatever
-  
-  End Select
-
-
-End Sub
-
 Public Sub ModerniseForm(ByRef uUserForm As UserForm)
 
   uUserForm.ForeColor = g_lngFORE_COLOUR
   uUserForm.Font.Name = g_stFONT_NAME
-  'uUserForm.Font.Size = g_lngFONT_SIZE
+  uUserForm.Font.Size = g_lngFONT_SIZE
   uUserForm.BackColor = g_lngFORM_BACK_COLOUR
   uUserForm.BorderColor = g_lngBORDER_COLOUR
   uUserForm.SpecialEffect = g_lngSPECIAL_EFFECT
@@ -132,28 +119,60 @@ End Sub
 
 Public Sub ModerniseControls(ByRef ctlsControls As Controls)
 
-  ' TODO: at the moment this attempts to apply styles to everything regardless
-  '       change this to target elements with styles they can accept - and then
-  '       get rid of the on error resume next.
-
   Dim ctlControl As control
-  On Error Resume Next
-  For Each ctlControl In ctlsControls
-    ctlControl.ForeColor = g_lngFORE_COLOUR
-    ctlControl.Font.Name = g_stFONT_NAME
-    ctlControl.Font.Size = g_lngFONT_SIZE
-    ctlControl.BackColor = g_lngBACK_COLOUR
-    ctlControl.BorderColor = g_lngBORDER_COLOUR
-    ctlControl.SpecialEffect = g_lngSPECIAL_EFFECT
-    
-    If TypeName(ctlControl) = "TextBox" Then
-      ctlControl.BorderStyle = g_lngTEXTBOX_BORDERSTYLE
-    End If
-    
-    If TypeName(ctlControl) = "Frame" Then
-      ctlControl.BorderStyle = g_lngTEXTBOX_BORDERSTYLE
-    End If
-    
-  Next ctlControl
+  
+   For Each ctlControl In ctlsControls
+    With ctlControl
+      ' General:
+      .BackColor = g_lngBACK_COLOUR
+      Select Case TypeName(ctlControl)
+        Case "Label"
+          .Font.Name = g_stFONT_NAME
+          .Font.Size = g_lngFONT_SIZE
+          .ForeColor = g_lngFORE_COLOUR
+        Case "TextBox"
+          .Font.Name = g_stFONT_NAME
+          .Font.Size = g_lngFONT_SIZE
+          .BorderStyle = g_lngTEXTBOX_BORDERSTYLE
+          .BorderColor = g_lngBORDER_COLOUR
+          .SpecialEffect = g_lngSPECIAL_EFFECT
+          .ForeColor = g_lngFORE_COLOUR
 
+        Case "Frame"
+          .Font.Name = g_stFONT_NAME
+          .Font.Size = g_lngFONT_SIZE
+          .BorderStyle = g_lngTEXTBOX_BORDERSTYLE
+          .BorderColor = g_lngBORDER_COLOUR
+          .SpecialEffect = g_lngSPECIAL_EFFECT
+          .ForeColor = g_lngFORE_COLOUR
+
+        Case "CheckBox"
+          .Font.Name = g_stFONT_NAME
+          .Font.Size = g_lngFONT_SIZE
+          .SpecialEffect = g_lngSPECIAL_EFFECT
+          .ForeColor = g_lngFORE_COLOUR
+
+        Case "OptionButton"
+          .Font.Name = g_stFONT_NAME
+          .Font.Size = g_lngFONT_SIZE
+          .SpecialEffect = g_lngSPECIAL_EFFECT
+          .ForeColor = g_lngFORE_COLOUR
+
+        Case "ScrollBar"
+          .ForeColor = g_lngFORE_COLOUR
+
+        Case "SpinButton"
+          .ForeColor = g_lngFORE_COLOUR
+
+        Case "ListBox"
+          .Font.Name = g_stFONT_NAME
+          .Font.Size = g_lngFONT_SIZE
+          .SpecialEffect = g_lngSPECIAL_EFFECT
+          .BorderStyle = g_lngTEXTBOX_BORDERSTYLE
+          .BorderColor = g_lngBORDER_COLOUR
+
+      End Select
+    End With
+
+   Next ctlControl
 End Sub

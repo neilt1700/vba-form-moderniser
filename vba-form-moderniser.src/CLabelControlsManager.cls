@@ -32,9 +32,6 @@ Public Sub CreateControlResponders()
   Dim colLabelControls As Collection
   Set colLabelControls = p_oLabelControls.LabelControls
   
-  FormModerniserModule.DefaultButton = vbNullString
-  FormModerniserModule.ActiveButton = vbNullString
-  
   Dim oLabelControl As CLabelControl
   For Each oLabelControl In colLabelControls
   
@@ -71,21 +68,28 @@ Public Sub CreateKeyDownResponders()
   Set p_colKeyDownControls = New Collection
   
   For Each ctlControl In p_ctlsControls
-    If TypeName(ctlControl) = "TextBox" Then
-      p_colKeyDownControls.Add Factory.CreateCKeyDownResponder(ctlControl, p_oLabelControls, p_ctlsControls), _
-                                        ctlControl.Name
-    End If
-  Next ctlControl
-  
+    If TypeName(ctlControl) = "CheckBox" Or _
+       TypeName(ctlControl) = "OptionButton" Or _
+       TypeName(ctlControl) = "ScrollBar" Or _
+       TypeName(ctlControl) = "SpinButton" Or _
+       TypeName(ctlControl) = "ListBox" Or _
+       TypeName(ctlControl) = "TabStrip" Or _
+       TypeName(ctlControl) = "TextBox" Then
+       p_colKeyDownControls.Add Factory.CreateCKeyDownResponder(ctlControl, p_oLabelControls, p_ctlsControls), _
+                                         ctlControl.Name
+     End If
+   Next ctlControl
+
 End Sub
 
-
 Public Sub InitiateProperties(ByRef ctlsControls As MSForms.Controls, _
-                              Optional ByVal stIdentifier As String = vbNullString)
+                              ByVal stIdentifier As String, _
+                              ByRef arrLabelControlsOrder() As String)
+
   
   Set p_ctlsControls = ctlsControls
   
-  Set p_oLabelControls = Factory.CreateCLabelControls(ctlsControls, stIdentifier)
+  Set p_oLabelControls = Factory.CreateCLabelControls(ctlsControls, stIdentifier, arrLabelControlsOrder)
   p_oLabelControls.UpdateControlButtonState
    
   Me.CreateControlResponders

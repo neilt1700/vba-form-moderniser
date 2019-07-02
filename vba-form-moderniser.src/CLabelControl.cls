@@ -106,6 +106,7 @@ Public Sub CreateLayers()
   With p_ctlText
     ' 1.35 appears to be the best factor to use (takes into account the padding
     ' added around text.
+    .Font.Size = g_lngFONT_SIZE
     dblTextHeight = CDbl(.Font.Size) * 1.35
     .Caption = stCaption
     .BackStyle = fmBackStyleTransparent
