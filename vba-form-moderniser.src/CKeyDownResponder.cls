@@ -138,10 +138,29 @@ Public Sub InitiateProperties(ByRef ctlControl As control, _
   Set p_oLabelControls = oLabelControls
   Set p_ctlsControls = ctlsControls
   
-  If TypeName(ctlControl) = "TextBox" Then
-    Set Me.TextBoxEvents = ctlControl
-    FormModerniserModule.LastTabbedControl = ctlControl.Name
-  End If
+  Select Case TypeName(ctlControl)
+    Case "TextBox"
+      Set Me.TextBoxEvents = ctlControl
+      FormModerniserModule.LastTabbedControl = ctlControl.Name
+    Case "OptionButton"
+      Set Me.OptionButtonEvents = ctlControl
+      FormModerniserModule.LastTabbedControl = ctlControl.Name
+    Case "ScrollBar"
+      Set Me.ScrollBarEvents = ctlControl
+      FormModerniserModule.LastTabbedControl = ctlControl.Name
+    Case "SpinButton"
+      Set Me.SpinButtonEvents = ctlControl
+      FormModerniserModule.LastTabbedControl = ctlControl.Name
+    Case "ListBox"
+      Set Me.ListBoxEvents = ctlControl
+      FormModerniserModule.LastTabbedControl = ctlControl.Name
+    Case "TabStrip"
+      Set Me.TabStripEvents = ctlControl
+      FormModerniserModule.LastTabbedControl = ctlControl.Name
+    Case "CheckBox"
+      Set Me.CheckBoxEvents = ctlControl
+      FormModerniserModule.LastTabbedControl = ctlControl.Name
+  End Select
   
 End Sub
 

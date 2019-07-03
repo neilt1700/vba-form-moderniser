@@ -20,3 +20,11 @@ Public Sub ShowSampleForm()
 
 End Sub
 
+Public Sub ShowOldStyleForm()
+
+  Dim oUSampleUserFormOldStyle As USampleUserFormOldStyle
+  Set oUSampleUserFormOldStyle = New USampleUserFormOldStyle
+  
+  USampleUserFormOldStyle.Show
+
+End Sub

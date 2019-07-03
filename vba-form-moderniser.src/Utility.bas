@@ -24,3 +24,9 @@ Public Function KeyExistsInCollection(ByVal col As Collection, ByVal key As Stri
   End If
 
 End Function
+
+Public Function ControlExists(ByVal ctlsControls As Controls, ByVal stControlName As String) As Boolean
+  On Error Resume Next
+    ControlExists = Not ctlsControls(stControlName) Is Nothing
+  On Error GoTo 0
+End Function

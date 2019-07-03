@@ -82,12 +82,27 @@ Public Sub CreateKeyDownResponders()
 
 End Sub
 
+' Checks that the default buttons are correct for this set of controls and
+' resets them if not.
+Public Sub CheckDefaults()
+  
+  If Not ControlExists(p_ctlsControls, FormModerniserModule.ActiveButton) Then
+    FormModerniserModule.ActiveButton = vbNullString
+  End If
+  
+  If Not ControlExists(p_ctlsControls, FormModerniserModule.DefaultButton) Then
+    FormModerniserModule.DefaultButton = vbNullString
+  End If
+  
+End Sub
+
 Public Sub InitiateProperties(ByRef ctlsControls As MSForms.Controls, _
                               ByVal stIdentifier As String, _
                               ByRef arrLabelControlsOrder() As String)
 
   
   Set p_ctlsControls = ctlsControls
+  CheckDefaults
   
   Set p_oLabelControls = Factory.CreateCLabelControls(ctlsControls, stIdentifier, arrLabelControlsOrder)
   p_oLabelControls.UpdateControlButtonState

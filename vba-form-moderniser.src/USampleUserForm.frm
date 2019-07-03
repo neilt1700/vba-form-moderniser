@@ -13,6 +13,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 ' Copyright (c) Commtap CIC 2019
 ' Available under the MIT license: see the LICENSE file at the root of this
 ' project.
@@ -46,6 +47,12 @@ Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
     Cancel = True
   End If
   
+End Sub
+
+' Each form also needs one of these - this takes the hover off a button when
+' the mouse is moved off it.
+Private Sub UserForm_MouseMove(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+  p_oLabelControlsManager.LabelControls.UpdateControlButtonState
 End Sub
 
 Public Sub InitiateProperties()
