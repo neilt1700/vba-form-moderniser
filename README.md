@@ -1,6 +1,16 @@
 # VBA Form Moderniser
-Sets up modern buttons based on userform labels and styles other elements in userforms.
+Sets up modern buttons based on userform labels and styles other elements in Office VBA userforms.
 This  gives vba userforms a look close to that of modern office forms.
+
+## Before and after
+
+Makes it easy to turn a VBA userform from this:
+
+![Form before](https://github.com/neilt1700/vba-form-moderniser/blob/master/images/sample-form-before.png)
+
+To this:
+
+![Form before](https://github.com/neilt1700/vba-form-moderniser/blob/master/images/sample-form-after.png)
 
 ## Summary of what it does
 * Creates modern style buttons from labels.
@@ -16,4 +26,4 @@ You should also replace any command buttons with labels, the caption on the labe
 The code picks up all labels which have a specific prefix to their names ("LabelButton") and uses those to create the label controls. Each control is made up of a border layer, background layer, text layer (having the caption from the original label), and on top, a transparent control layer (which receives mouse events and being the original label). Mouse up/down/move events are used to control the look of the buttons.
 
 ## Office Programmes
-While the code is in a PowerPoint file it should work other Office programmes including Excel and Word. The colour scheme for form controls that appear in the workspace of all these programmes is the same (blue).
+While the code is in a PowerPoint file it should work in other Office programmes including Excel and Word. The colour scheme for form controls that appear in the workspace of all these programmes is the same (blue).
