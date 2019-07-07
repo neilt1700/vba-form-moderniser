@@ -13,11 +13,11 @@ Private Const msMODULE As String = "Factory"
 
 ' Label Controls
 Public Function CreateCLabelControl(ByRef ctlsUserFormControls As MSForms.Controls, _
-                                    ByRef ctlLabelControl As MSForms.control, _
+                                    ByRef ctlLabelControl As MSForms.Control, _
                                     Optional ByVal boolDefault As Boolean) As CLabelControl
   Set CreateCLabelControl = New CLabelControl
   CreateCLabelControl.InitiateProperties ctlsUserFormControls:=ctlsUserFormControls, _
-                                         ctlLabelControl:=ctlLabelControl, _
+                                         ctlCommandButton:=ctlLabelControl, _
                                          boolDefault:=boolDefault
 End Function
 
@@ -28,14 +28,14 @@ Public Function CreateCLabelControlResponder(ByVal oLabelControl As CLabelContro
                                                   oLabelControls:=oLabelControls
 End Function
 
-Public Function CreateCLabelControlFrameResponder(ByRef ctlFrameControl As control, _
+Public Function CreateCLabelControlFrameResponder(ByRef ctlFrameControl As Control, _
                                                   ByRef oLabelControls As CLabelControls) As CLabelControlFrameResponder
   Set CreateCLabelControlFrameResponder = New CLabelControlFrameResponder
   CreateCLabelControlFrameResponder.InitiateProperties ctlFrameControl:=ctlFrameControl, _
                                                        oLabelControls:=oLabelControls
 End Function
 
-Public Function CreateCKeyDownResponder(ByRef ctlControl As control, _
+Public Function CreateCKeyDownResponder(ByRef ctlControl As Control, _
                                         ByRef oLabelControls As CLabelControls, _
                                         ByRef ctlsControls As Controls) As CKeyDownResponder
   Set CreateCKeyDownResponder = New CKeyDownResponder
@@ -45,21 +45,17 @@ Public Function CreateCKeyDownResponder(ByRef ctlControl As control, _
 End Function
 
 Public Function CreateCLabelControls(ByRef ctlsControls As MSForms.Controls, _
-                                     ByVal stIdentifier As String, _
                                      ByRef arrLabelControlsOrder() As String) As CLabelControls
 
   Set CreateCLabelControls = New CLabelControls
   CreateCLabelControls.InitiateProperties ctlsControls:=ctlsControls, _
-                                          stIdentifier:=stIdentifier, _
                                           arrLabelControlsOrder:=arrLabelControlsOrder
 End Function
 
 Public Function CreateCLabelControlsManager(ByRef ctlsControls As MSForms.Controls, _
-                                            ByVal stIdentifier As String, _
                                             ByRef arrLabelControlsOrder() As String) As CLabelControlsManager
   Set CreateCLabelControlsManager = New CLabelControlsManager
   CreateCLabelControlsManager.InitiateProperties ctlsControls:=ctlsControls, _
-                                                 stIdentifier:=stIdentifier, _
                                                  arrLabelControlsOrder:=arrLabelControlsOrder
 End Function
 
@@ -71,4 +67,5 @@ Public Function CreateUSampleUserForm() As USampleUserForm
   Set CreateUSampleUserForm = New USampleUserForm
   CreateUSampleUserForm.InitiateProperties
 End Function
+
 

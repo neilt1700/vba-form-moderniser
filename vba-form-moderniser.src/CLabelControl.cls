@@ -14,17 +14,22 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private p_ctlSurface As MSForms.control
+Public WithEvents LabelControlEvents As MSForms.Label
+Attribute LabelControlEvents.VB_VarHelpID = -1
+
+Private p_ctlSurface As MSForms.Control
 Private p_ctlsUserFormControls As MSForms.Controls
 
-Private p_ctlText As MSForms.control
-Private p_ctlBackground As MSForms.control
-Private p_ctlBorder As MSForms.control
+Private p_ctlText As MSForms.Control
+Private p_ctlBackground As MSForms.Control
+Private p_ctlBorder As MSForms.Control
 
 Private p_stName As String
 
 Private p_boolDefault As Boolean
 Private p_boolActive As Boolean
+
+Private p_stOnClickMethod As String
 
 Private Const p_stTEXTLAYER As String = "Caption"
 Private Const p_stBACKGROUNDLAYER As String = "Background"
@@ -34,9 +39,13 @@ Public Property Get LabelName() As String
   LabelName = p_stName
 End Property
 
-Public Property Get ControlSurface() As MSForms.control
+Public Property Get ControlSurface() As MSForms.Control
   Set ControlSurface = p_ctlSurface
 End Property
+
+Private Sub LabelControlEvents_Click()
+  CallByName gb_colCurrentUserForms.Item(1), p_stOnClickMethod, VbMethod
+End Sub
 
 ' The control consists of (from top to bottom):
 ' - Control Face Layer (where events are captured) - the original label but
@@ -216,14 +225,57 @@ Public Sub SetBorderWidth()
 
 End Sub
 
+Private Function CreateControlSurface(ByRef ctlCommandButton As Control) As Control
+
+  Dim stCaption As String
+  Dim stName As String
+  
+  Dim dblTop As Double
+  Dim dblLeft As Double
+  Dim dblWidth As Double
+  Dim dblHeight As Double
+  
+  Dim ctlSurface As Control
+
+  With ctlCommandButton
+    stName = "VFMLabelControl_" & .Name
+    stCaption = .Caption
+    dblTop = .Top
+    dblLeft = .Left
+    dblWidth = .Width
+    dblHeight = .Height
+  End With
+
+  Set ctlSurface = p_ctlsUserFormControls.Add("Forms.Label.1", stName, True)
+  With ctlSurface
+    .Caption = stCaption
+    .Top = dblTop
+    .Left = dblLeft
+    .Width = dblWidth
+    .Height = dblHeight
+  End With
+  
+  Set CreateControlSurface = ctlSurface
+  
+End Function
+
 Public Sub InitiateProperties(ByRef ctlsUserFormControls As MSForms.Controls, _
-                              ByRef ctlLabelControl As MSForms.control, _
+                              ByRef ctlCommandButton As MSForms.Control, _
                               Optional ByVal boolDefault As Boolean = False)
 
   Set p_ctlsUserFormControls = ctlsUserFormControls
-  Set p_ctlSurface = ctlLabelControl
+  
+  Set p_ctlSurface = CreateControlSurface(ctlCommandButton)
+  Set Me.LabelControlEvents = p_ctlSurface
+  
+  p_stOnClickMethod = ctlCommandButton.Name & "_Click"
+  
+  p_ctlsUserFormControls(ctlCommandButton.Name).Visible = False
+  
   p_boolDefault = boolDefault
   
   Me.CreateLayers
 
 End Sub
+
+

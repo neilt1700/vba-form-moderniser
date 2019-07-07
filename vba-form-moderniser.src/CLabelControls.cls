@@ -22,17 +22,15 @@ Public Property Get LabelControls() As Collection
   Set LabelControls = p_colLabelControls
 End Property
 
-Public Sub CreateLayeredControls(Optional ByVal stNamePrefix As String)
+Public Sub CreateLayeredControls()
 
-  Dim ctlControl As control
+  Dim ctlControl As Control
   Dim colLabelControls As Collection
   Set colLabelControls = New Collection
 
   For Each ctlControl In p_ctlsControls
-    If TypeName(ctlControl) = "Label" Then
-      If Mid(ctlControl.Name, 1, Len(stNamePrefix)) = stNamePrefix Then
-        colLabelControls.Add Factory.CreateCLabelControl(p_ctlsControls, ctlControl), ctlControl.Name
-      End If
+    If TypeName(ctlControl) = "CommandButton" Then
+      colLabelControls.Add Factory.CreateCLabelControl(p_ctlsControls, ctlControl), ctlControl.Name
     End If
   Next ctlControl
   
@@ -84,13 +82,11 @@ Public Sub UpdateControlButtonState(Optional ByVal stControlName As String, _
 End Sub
 
 Public Sub InitiateProperties(ByRef ctlsControls As MSForms.Controls, _
-                              ByVal stIdentifier As String, _
                               ByRef arrLabelControlsOrder() As String)
-
 
   p_arrLabelControlsOrder = arrLabelControlsOrder
   
   Set p_ctlsControls = ctlsControls
-  CreateLayeredControls stIdentifier
+  CreateLayeredControls
 
 End Sub

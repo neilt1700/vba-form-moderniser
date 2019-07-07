@@ -119,7 +119,7 @@ End Sub
 
 Public Sub ModerniseControls(ByRef ctlsControls As Controls)
 
-  Dim ctlControl As control
+  Dim ctlControl As Control
   
    For Each ctlControl In ctlsControls
     With ctlControl

@@ -29,7 +29,7 @@ Attribute CheckBoxEvents.VB_VarHelpID = -1
 Public WithEvents TextBoxEvents As MSForms.TextBox
 Attribute TextBoxEvents.VB_VarHelpID = -1
 
-Private p_ctlControl As control
+Private p_ctlControl As Control
 Private p_oLabelControls As CLabelControls
 Private p_ctlsControls As Controls
 
@@ -130,7 +130,7 @@ Private Sub MyEventsMouseDown(ByVal Button As Integer, ByVal Shift As Integer, B
   FormModerniserModule.TabOverflow = 0
 End Sub
 
-Public Sub InitiateProperties(ByRef ctlControl As control, _
+Public Sub InitiateProperties(ByRef ctlControl As Control, _
                               ByRef oLabelControls As CLabelControls, _
                               ByRef ctlsControls As Controls)
 

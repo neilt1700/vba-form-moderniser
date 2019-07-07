@@ -28,7 +28,7 @@ Private Sub FrameEvents_MouseMove(ByVal Button As Integer, ByVal Shift As Intege
 End Sub
 
 
-Public Sub InitiateProperties(ByRef ctlFrameControl As control, _
+Public Sub InitiateProperties(ByRef ctlFrameControl As Control, _
                               ByRef oLabelControls As CLabelControls)
   
   Set p_oLabelControls = oLabelControls

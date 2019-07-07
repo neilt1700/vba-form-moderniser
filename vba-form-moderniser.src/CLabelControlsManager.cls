@@ -44,7 +44,7 @@ End Sub
 
 Public Sub CreateFrameControlResponders(Optional ByVal stNamePrefix As String)
 
-  Dim ctlControl As control
+  Dim ctlControl As Control
   Set p_colFrameControls = New Collection
 
   For Each ctlControl In p_ctlsControls
@@ -60,7 +60,7 @@ End Sub
 
 Public Sub CreateKeyDownResponders()
 
-  Dim ctlControl As control
+  Dim ctlControl As Control
   
   FormModerniserModule.TabOverflow = 0
   FormModerniserModule.LastTabbedControl = vbNullString
@@ -97,14 +97,12 @@ Public Sub CheckDefaults()
 End Sub
 
 Public Sub InitiateProperties(ByRef ctlsControls As MSForms.Controls, _
-                              ByVal stIdentifier As String, _
                               ByRef arrLabelControlsOrder() As String)
 
-  
   Set p_ctlsControls = ctlsControls
   CheckDefaults
   
-  Set p_oLabelControls = Factory.CreateCLabelControls(ctlsControls, stIdentifier, arrLabelControlsOrder)
+  Set p_oLabelControls = Factory.CreateCLabelControls(ctlsControls, arrLabelControlsOrder)
   p_oLabelControls.UpdateControlButtonState
    
   Me.CreateControlResponders
