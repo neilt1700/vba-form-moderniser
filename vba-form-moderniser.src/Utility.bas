@@ -30,3 +30,17 @@ Public Function ControlExists(ByVal ctlsControls As Controls, ByVal stControlNam
     ControlExists = Not ctlsControls(stControlName) Is Nothing
   On Error GoTo 0
 End Function
+
+' Placeholder function for error handling
+' Note, general error handling is not implemented in this project, however the
+' code to call it is mostly present. If you want to implement this error
+' handling please refer to:
+' "Professional Excel Development - Second Edition" - Rob Bovey,
+' Dennis Wallentin, Stephen Bullen and John Green. 2009. Published by Addison
+' Wesley.
+Public Function bCentralErrorHandler(msMODULE, sSOURCE) As Boolean
+  bCentralErrorHandler = False
+End Function
+
+
+

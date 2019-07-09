@@ -26,29 +26,17 @@ Private p_oLabelControlsManager As CLabelControlsManager
 
 ' Click methods must be declared public
 Public Sub CommandButton1_Click()
-  MsgBox "You clicked the command button."
+   Me.Hide
 End Sub
 
-' For labels you want to be used as modern style controls:
-' - add a prefix to all of them e.g. "LabelButton" (so that other labels that
-'   you don't want converted into buttons aren't).
-' - give each a click routine, and declare these as public - they are going to
-'   be called from outside of the form.
-'
-Public Sub LabelButtonCancel_Click()
-  Me.Hide
-End Sub
-
-Public Sub LabelButtonOK_Click()
-
-  MsgBox "You clicked on the ""OK"" button."
-
+Public Sub CommandButton2_Click()
+  MsgBox "You clicked the ""OK"" button."
 End Sub
 
 Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
 
   If CloseMode = vbFormControlMenu Then
-    LabelButtonCancel_Click
+    CommandButton1_Click
     Cancel = True
   End If
   
@@ -64,17 +52,17 @@ Public Sub InitiateProperties()
 
   ' This styles the form generally:
   ModerniseControls Me.Controls
-  
-  ' This converts command buttons into modern controls.
-  ' The default button is the one that will run if enter is pressed.
     
   ' These must be re/initialised here.
   FormModerniserModule.ActiveButton = vbNullString
   FormModerniserModule.DefaultButton = "CommandButton1"
   
+  ' The order of the buttons when tabbed through.
   Dim arrLabelControlsOrder() As String
-  arrLabelControlsOrder = Split("CommandButton1 CommandButton2")
-  
+  arrLabelControlsOrder = Split("CommandButton2 CommandButton1")
+     
+  ' This converts command buttons into modern controls.
+  ' The default button is the one that will run if enter is pressed.
   Set p_oLabelControlsManager = Factory.CreateCLabelControlsManager(Me.Controls, _
                                                                     arrLabelControlsOrder)
 
