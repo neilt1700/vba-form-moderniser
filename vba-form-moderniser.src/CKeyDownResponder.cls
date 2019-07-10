@@ -14,6 +14,8 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Private Const msMODULE As String = "CKeyDownResponder"
+
 Public WithEvents OptionButtonEvents As MSForms.OptionButton
 Attribute OptionButtonEvents.VB_VarHelpID = -1
 Public WithEvents ScrollBarEvents As MSForms.ScrollBar
@@ -29,20 +31,62 @@ Attribute CheckBoxEvents.VB_VarHelpID = -1
 Public WithEvents TextBoxEvents As MSForms.TextBox
 Attribute TextBoxEvents.VB_VarHelpID = -1
 
-Private p_ctlControl As Control
+Private p_ctlControl As control
 Private p_oLabelControls As CLabelControls
 Private p_ctlsControls As Controls
 
 Private Sub OptionButtonEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+
+  Const sSOURCE As String = "OptionButtonEvents_KeyDown"
+  On Error GoTo ErrorHandler
+
   MyEventsKeyDown KeyCode, Shift
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub OptionButtonEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+
+  Const sSOURCE As String = "OptionButtonEvents_MouseDown"
+  On Error GoTo ErrorHandler
+
   MyEventsMouseDown Button, Shift, X, Y
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub ScrollBarEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+
+  Const sSOURCE As String = "ScrollBarEvents_KeyDown"
+  On Error GoTo ErrorHandler
+
   MyEventsKeyDown KeyCode, Shift
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 'No mousedown event for scrollbar events.
@@ -51,7 +95,21 @@ End Sub
 'End Sub
 
 Private Sub SpinButtonEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+
+  Const sSOURCE As String = "SpinButtonEvents_KeyDown"
+  On Error GoTo ErrorHandler
+
   MyEventsKeyDown KeyCode, Shift
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 'No mousedown event for spinbutton events.
@@ -60,43 +118,159 @@ End Sub
 'End Sub
 
 Private Sub ListBoxEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+
+  Const sSOURCE As String = "ListBoxEvents_KeyDown"
+  On Error GoTo ErrorHandler
+
   MyEventsKeyDown KeyCode, Shift
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub ListBoxEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+
+  Const sSOURCE As String = "ListBoxEvents_MouseDown"
+  On Error GoTo ErrorHandler
+
   MyEventsMouseDown Button, Shift, X, Y
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub TabStripEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+
+  Const sSOURCE As String = "TabStripEvents_KeyDown"
+  On Error GoTo ErrorHandler
+
   MyEventsKeyDown KeyCode, Shift
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub TabStripEvents_MouseDown(ByVal Index As Long, ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+
+  Const sSOURCE As String = "TabStripEvents_MouseDown"
+  On Error GoTo ErrorHandler
+
   MyEventsMouseDown Button, Shift, X, Y
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub CheckBoxEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+
+  Const sSOURCE As String = "CheckBoxEvents_KeyDown"
+  On Error GoTo ErrorHandler
+
   MyEventsKeyDown KeyCode, Shift
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub CheckBoxEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+
+  Const sSOURCE As String = "CheckBoxEvents_MouseDown"
+  On Error GoTo ErrorHandler
+
   MyEventsMouseDown Button, Shift, X, Y
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub TextBoxEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+
+  Const sSOURCE As String = "TextBoxEvents_KeyDown"
+  On Error GoTo ErrorHandler
+
   MyEventsKeyDown KeyCode, Shift
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub TextBoxEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+
+  Const sSOURCE As String = "TextBoxEvents_MouseDown"
+  On Error GoTo ErrorHandler
+
   MyEventsMouseDown Button, Shift, X, Y
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub MyEventsKeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift As Integer)
+
+  Const sSOURCE As String = "MyEventsKeyDown"
+  On Error GoTo ErrorHandler
+
   If p_oLabelControls.LabelControls.Count > 0 Then
     If p_ctlControl.Name = FormModerniserModule.LastTabbedControl Then
       If KeyCode = vbKeyReturn Then
         If FormModerniserModule.DefaultButton <> vbNullString Then
-          CallByName gb_colCurrentUserForms.Item(1), FormModerniserModule.DefaultButton & "_Click", VbMethod
+          CallByName gb_colCurrentUserForms.Item(1), SourceButtonName(FormModerniserModule.DefaultButton) & "_Click", VbMethod
         End If
       ElseIf KeyCode = vbKeyTab Or KeyCode = vbKeyDown Or KeyCode = vbKeyRight Then
         If FormModerniserModule.TabOverflow < p_oLabelControls.LabelControls.Count Then
@@ -116,7 +290,7 @@ Private Sub MyEventsKeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift 
     Else
       If KeyCode = vbKeyReturn Then
         If FormModerniserModule.DefaultButton <> vbNullString Then
-          CallByName gb_colCurrentUserForms.Item(1), FormModerniserModule.DefaultButton & "_Click", VbMethod
+          CallByName gb_colCurrentUserForms.Item(1), SourceButtonName(FormModerniserModule.DefaultButton) & "_Click", VbMethod
         End If
       End If
       If FormModerniserModule.TabOverflow > 0 Then
@@ -124,16 +298,44 @@ Private Sub MyEventsKeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal Shift 
       End If
     End If
   End If
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 Private Sub MyEventsMouseDown(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+
+  Const sSOURCE As String = "MyEventsMouseDown"
+  On Error GoTo ErrorHandler
+
   FormModerniserModule.TabOverflow = 0
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
-Public Sub InitiateProperties(ByRef ctlControl As Control, _
+
+Public Sub InitiateProperties(ByRef ctlControl As control, _
                               ByRef oLabelControls As CLabelControls, _
                               ByRef ctlsControls As Controls)
 
+  Const sSOURCE As String = "InitiateProperties"
+  On Error GoTo ErrorHandler
+  
   Set p_ctlControl = ctlControl
   Set p_oLabelControls = oLabelControls
   Set p_ctlsControls = ctlsControls
@@ -161,7 +363,14 @@ Public Sub InitiateProperties(ByRef ctlControl As Control, _
       Set Me.CheckBoxEvents = ctlControl
       FormModerniserModule.LastTabbedControl = ctlControl.Name
   End Select
-  
+    
+  Exit Sub
+
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+
 End Sub
-
-

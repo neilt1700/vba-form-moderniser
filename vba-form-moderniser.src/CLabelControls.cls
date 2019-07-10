@@ -14,6 +14,8 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Private Const msMODULE As String = "CLabelControls"
+
 Private p_colLabelControls As Collection
 Private p_arrLabelControlsOrder() As String
 Private p_ctlsControls As Controls
@@ -24,31 +26,44 @@ End Property
 
 Public Sub CreateLayeredControls()
 
-  Dim ctlControl As Control
+  Const sSOURCE As String = "CreateLayeredControls"
+  On Error GoTo ErrorHandler
+
+  Dim ctlControl As control
+  
   Dim colLabelControls As Collection
   Set colLabelControls = New Collection
 
   For Each ctlControl In p_ctlsControls
     If TypeName(ctlControl) = "CommandButton" Then
-      colLabelControls.Add Factory.CreateCLabelControl(p_ctlsControls, ctlControl), ctlControl.Name
+      colLabelControls.Add VFMFactory.CreateCLabelControl(p_ctlsControls, ctlControl), ctlControl.Name
     End If
   Next ctlControl
   
   Set p_colLabelControls = New Collection
   Dim stLabelControl As Variant
-
+  
   For Each stLabelControl In p_arrLabelControlsOrder
     If KeyExistsInCollection(colLabelControls, stLabelControl) Then
       p_colLabelControls.Add colLabelControls(stLabelControl), stLabelControl
       colLabelControls.Remove stLabelControl
     End If
   Next stLabelControl
-
+  
   ' Add on any remaining items that weren't in the label control order list:
   Dim oLabelControl As CLabelControl
   For Each oLabelControl In colLabelControls
     p_colLabelControls.Add oLabelControl, oLabelControl.LabelName
   Next oLabelControl
+  
+  Exit Sub
+
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
 
 End Sub
 
@@ -57,6 +72,9 @@ Public Sub UpdateControlButtonState(Optional ByVal stControlName As String, _
                                     Optional ByVal boolLocationSet As Boolean = False, _
                                     Optional ByVal X As Double, _
                                     Optional ByVal Y As Double)
+
+  Const sSOURCE As String = "UpdateControlButtonState"
+  On Error GoTo ErrorHandler
 
   Dim stDefaultControlName As String
   stDefaultControlName = FormModerniserModule.DefaultButton
@@ -79,14 +97,36 @@ Public Sub UpdateControlButtonState(Optional ByVal stControlName As String, _
     End If
   Next oLabelControl
 
+  Exit Sub
+
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+
 End Sub
+
 
 Public Sub InitiateProperties(ByRef ctlsControls As MSForms.Controls, _
                               ByRef arrLabelControlsOrder() As String)
 
+  Const sSOURCE As String = "InitiateProperties"
+  On Error GoTo ErrorHandler
+  
   p_arrLabelControlsOrder = arrLabelControlsOrder
   
   Set p_ctlsControls = ctlsControls
   CreateLayeredControls
+
+  Exit Sub
+
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
 
 End Sub

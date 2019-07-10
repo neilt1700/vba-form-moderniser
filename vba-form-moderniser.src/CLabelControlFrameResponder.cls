@@ -14,6 +14,8 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Private Const msMODULE As String = "CLabelControlFrameResponder"
+
 ' Responds to Frame move events - to reset label button states as necessary.
 
 Public WithEvents FrameEvents As MSForms.Frame
@@ -23,16 +25,42 @@ Private p_oLabelControls As CLabelControls
 
 Private Sub FrameEvents_MouseMove(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
   
+  Const sSOURCE As String = "FrameEvents_MouseMove"
+  On Error GoTo ErrorHandler
+  
   p_oLabelControls.UpdateControlButtonState
+  
+ErrorExit:
+  
+  Exit Sub
     
+ErrorHandler:
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
+    Stop
+    Resume
+  Else
+    Resume ErrorExit
+  End If
+  
 End Sub
 
 
-Public Sub InitiateProperties(ByRef ctlFrameControl As Control, _
+Public Sub InitiateProperties(ByRef ctlFrameControl As control, _
                               ByRef oLabelControls As CLabelControls)
+
+  Const sSOURCE As String = "InitiateProperties"
+  On Error GoTo ErrorHandler
   
   Set p_oLabelControls = oLabelControls
   Set Me.FrameEvents = ctlFrameControl
+  
+  Exit Sub
+
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
 
 End Sub
-

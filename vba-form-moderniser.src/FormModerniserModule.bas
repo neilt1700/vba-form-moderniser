@@ -4,15 +4,20 @@ Attribute VB_Name = "FormModerniserModule"
 ' project.
 ' Contact: tap@commtap.org
 
-' Note buttons in office have a standard height and width.
+' Note buttons in office generally have a standard height and width.
 
 Option Explicit
 
 Private Const msMODULE As String = "FormModerniserModule"
 
+Public Const g_stVERSION As String = "2.1-beta"
+
 ' Used for styling the label buttons.
 Private m_stDefaultButton As String
 Private m_stActiveButton As String
+
+' Suffix for label control surface created from a command button:
+Public Const g_stLABEL_CONTROL_SUFFIX As String = "VFMLabelControl_"
 
 ' Used to capture returns and tabbing from controls to the label buttons.
 ' Tab as in keyboard tab.
@@ -53,9 +58,7 @@ Public Const g_dblBTN_DEFAULT_ACTIVE_BORDER_WIDTH As Double = 3
 'Public Const g_lngBTN_INACTIVE_DEFAULT_BACKGROUND_COLOUR As Long = &HFDFDFD
 'Public Const g_lngBTN_INACTIVE_BACKGROUND_COLOUR As Long = &HFDFDFD
 
-' Note these colours are the ones used in forms in the workspace for Word,
-' PowerPoint and Excel (shades of blue).
-' The active border style is slightly simplified.
+' Shades of blue
 Public Const g_lngBTN_ACTIVE_DEFAULT_BORDER_COLOUR As Long = &H9E8671
 Public Const g_lngBTN_HOVER_DEFAULT_BORDER_COLOUR As Long = &HD77800 ' Done
 Public Const g_lngBTN_HOVER_BORDER_COLOUR As Long = &HD77800 ' Done
@@ -75,7 +78,11 @@ Public Enum lctlState
 End Enum
 
 Public Property Let DefaultButton(ByVal stValue As String)
-  m_stDefaultButton = stValue
+  If Mid(stValue, 1, Len(g_stLABEL_CONTROL_SUFFIX)) = g_stLABEL_CONTROL_SUFFIX Then
+    m_stDefaultButton = stValue
+  Else
+    m_stDefaultButton = g_stLABEL_CONTROL_SUFFIX & stValue
+  End If
 End Property
 
 Public Property Get DefaultButton() As String
@@ -83,7 +90,11 @@ Public Property Get DefaultButton() As String
 End Property
 
 Public Property Let ActiveButton(ByVal stValue As String)
-  m_stActiveButton = stValue
+  If Mid(stValue, 1, Len(g_stLABEL_CONTROL_SUFFIX)) = g_stLABEL_CONTROL_SUFFIX Then
+    m_stActiveButton = stValue
+  Else
+    m_stActiveButton = g_stLABEL_CONTROL_SUFFIX & stValue
+  End If
 End Property
 
 Public Property Get ActiveButton() As String
@@ -106,7 +117,11 @@ Public Property Get LastTabbedControl() As String
   LastTabbedControl = m_stLastTabbedControl
 End Property
 
+
 Public Sub ModerniseForm(ByRef uUserForm As UserForm)
+
+  Const sSOURCE As String = "ModerniseForm"
+  On Error GoTo ErrorHandler
 
   uUserForm.ForeColor = g_lngFORE_COLOUR
   uUserForm.Font.Name = g_stFONT_NAME
@@ -115,21 +130,35 @@ Public Sub ModerniseForm(ByRef uUserForm As UserForm)
   uUserForm.BorderColor = g_lngBORDER_COLOUR
   uUserForm.SpecialEffect = g_lngSPECIAL_EFFECT
 
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+
 End Sub
 
 Public Sub ModerniseControls(ByRef ctlsControls As Controls)
 
-  Dim ctlControl As Control
+  Const sSOURCE As String = "ModerniseControls"
+  On Error GoTo ErrorHandler
+
+  Dim ctlControl As control
   
-   For Each ctlControl In ctlsControls
+  For Each ctlControl In ctlsControls
     With ctlControl
       ' General:
       .BackColor = g_lngBACK_COLOUR
+    
       Select Case TypeName(ctlControl)
         Case "Label"
           .Font.Name = g_stFONT_NAME
           .Font.Size = g_lngFONT_SIZE
           .ForeColor = g_lngFORE_COLOUR
+    
         Case "TextBox"
           .Font.Name = g_stFONT_NAME
           .Font.Size = g_lngFONT_SIZE
@@ -137,7 +166,7 @@ Public Sub ModerniseControls(ByRef ctlsControls As Controls)
           .BorderColor = g_lngBORDER_COLOUR
           .SpecialEffect = g_lngSPECIAL_EFFECT
           .ForeColor = g_lngFORE_COLOUR
-
+      
         Case "Frame"
           .Font.Name = g_stFONT_NAME
           .Font.Size = g_lngFONT_SIZE
@@ -145,34 +174,54 @@ Public Sub ModerniseControls(ByRef ctlsControls As Controls)
           .BorderColor = g_lngBORDER_COLOUR
           .SpecialEffect = g_lngSPECIAL_EFFECT
           .ForeColor = g_lngFORE_COLOUR
-
+   
         Case "CheckBox"
           .Font.Name = g_stFONT_NAME
           .Font.Size = g_lngFONT_SIZE
           .SpecialEffect = g_lngSPECIAL_EFFECT
           .ForeColor = g_lngFORE_COLOUR
-
+   
         Case "OptionButton"
           .Font.Name = g_stFONT_NAME
           .Font.Size = g_lngFONT_SIZE
           .SpecialEffect = g_lngSPECIAL_EFFECT
           .ForeColor = g_lngFORE_COLOUR
-
+      
         Case "ScrollBar"
           .ForeColor = g_lngFORE_COLOUR
-
+      
         Case "SpinButton"
           .ForeColor = g_lngFORE_COLOUR
-
+      
         Case "ListBox"
           .Font.Name = g_stFONT_NAME
           .Font.Size = g_lngFONT_SIZE
           .SpecialEffect = g_lngSPECIAL_EFFECT
           .BorderStyle = g_lngTEXTBOX_BORDERSTYLE
           .BorderColor = g_lngBORDER_COLOUR
-
+       
       End Select
     End With
+    
+  Next ctlControl
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
 
-   Next ctlControl
 End Sub
+
+' Removes the label command suffix.
+Public Function SourceButtonName(ByVal stButtonName As String) As String
+  If Mid(stButtonName, 1, Len(g_stLABEL_CONTROL_SUFFIX)) = g_stLABEL_CONTROL_SUFFIX Then
+    SourceButtonName = Mid(stButtonName, Len(g_stLABEL_CONTROL_SUFFIX) + 1)
+  Else
+    SourceButtonName = stButtonName
+  End If
+End Function
+

@@ -14,6 +14,8 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Private Const msMODULE As String = "CLabelControlsManager"
+
 Private p_oLabelControls As CLabelControls
 Private p_ctlsControls As Controls
 Private p_colControlResponders As Collection
@@ -27,40 +29,67 @@ End Property
 
 Public Sub CreateControlResponders()
 
+  Const sSOURCE As String = "CreateControlResponders"
+  On Error GoTo ErrorHandler
+
   Set p_colControlResponders = New Collection
 
   Dim colLabelControls As Collection
   Set colLabelControls = p_oLabelControls.LabelControls
-  
+    
   Dim oLabelControl As CLabelControl
   For Each oLabelControl In colLabelControls
   
-    p_colControlResponders.Add Factory.CreateCLabelControlResponder(oLabelControl, _
+    p_colControlResponders.Add VFMFactory.CreateCLabelControlResponder(oLabelControl, _
                                          p_oLabelControls)
   
   Next oLabelControl
+
+  Exit Sub
+
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
 
 End Sub
 
 Public Sub CreateFrameControlResponders(Optional ByVal stNamePrefix As String)
 
-  Dim ctlControl As Control
+  Const sSOURCE As String = "CreateFrameControls"
+  On Error GoTo ErrorHandler
+
+  Dim ctlControl As control
   Set p_colFrameControls = New Collection
 
   For Each ctlControl In p_ctlsControls
     If TypeName(ctlControl) = "Frame" Then
       If Mid(ctlControl.Name, 1, Len(stNamePrefix)) = stNamePrefix Then
-        p_colFrameControls.Add Factory.CreateCLabelControlFrameResponder(ctlControl, p_oLabelControls), _
+        p_colFrameControls.Add VFMFactory.CreateCLabelControlFrameResponder(ctlControl, p_oLabelControls), _
                                   ctlControl.Name
       End If
     End If
   Next ctlControl
   
+  Exit Sub
+
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+
 End Sub
 
 Public Sub CreateKeyDownResponders()
-
-  Dim ctlControl As Control
+ 
+  Const sSOURCE As String = "CreateKeyDownResponders"
+  On Error GoTo ErrorHandler
+ 
+  Dim ctlControl As control
   
   FormModerniserModule.TabOverflow = 0
   FormModerniserModule.LastTabbedControl = vbNullString
@@ -75,11 +104,20 @@ Public Sub CreateKeyDownResponders()
        TypeName(ctlControl) = "ListBox" Or _
        TypeName(ctlControl) = "TabStrip" Or _
        TypeName(ctlControl) = "TextBox" Then
-       p_colKeyDownControls.Add Factory.CreateCKeyDownResponder(ctlControl, p_oLabelControls, p_ctlsControls), _
-                                         ctlControl.Name
-     End If
-   Next ctlControl
+      p_colKeyDownControls.Add VFMFactory.CreateCKeyDownResponder(ctlControl, p_oLabelControls, p_ctlsControls), _
+                                        ctlControl.Name
+    End If
+  Next ctlControl
+  
+  Exit Sub
 
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Sub
 
 ' Checks that the default buttons are correct for this set of controls and
@@ -99,15 +137,28 @@ End Sub
 Public Sub InitiateProperties(ByRef ctlsControls As MSForms.Controls, _
                               ByRef arrLabelControlsOrder() As String)
 
+  Const sSOURCE As String = "InitiateProperties"
+  On Error GoTo ErrorHandler
+  
   Set p_ctlsControls = ctlsControls
+  
+  Set p_oLabelControls = VFMFactory.CreateCLabelControls(ctlsControls, arrLabelControlsOrder)
   CheckDefaults
   
-  Set p_oLabelControls = Factory.CreateCLabelControls(ctlsControls, arrLabelControlsOrder)
   p_oLabelControls.UpdateControlButtonState
    
   Me.CreateControlResponders
   Me.CreateFrameControlResponders
   Me.CreateKeyDownResponders
+    
+  Exit Sub
+
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
 
 End Sub
 

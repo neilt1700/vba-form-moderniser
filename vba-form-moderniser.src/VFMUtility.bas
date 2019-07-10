@@ -1,4 +1,4 @@
-Attribute VB_Name = "Utility"
+Attribute VB_Name = "VFMUtility"
 Option Explicit
 
 ' This method from:
@@ -38,7 +38,11 @@ End Function
 ' "Professional Excel Development - Second Edition" - Rob Bovey,
 ' Dennis Wallentin, Stephen Bullen and John Green. 2009. Published by Addison
 ' Wesley.
-Public Function bCentralErrorHandler(msMODULE, sSOURCE) As Boolean
+Public Function bCentralErrorHandler(ByVal sModule As String, _
+                                     ByVal sProc As String, _
+                                     Optional ByVal sFile As String, _
+                                     Optional ByVal bEntryPoint As Boolean, _
+                                     Optional ByVal bReThrow As Boolean = True) As Boolean
   bCentralErrorHandler = False
 End Function
 

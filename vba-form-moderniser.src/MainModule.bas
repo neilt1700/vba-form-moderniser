@@ -9,7 +9,8 @@ Option Explicit
 Public Sub ShowSampleForm()
 
   Dim oUSampleUserForm As USampleUserForm
-  Set oUSampleUserForm = Factory.CreateUSampleUserForm
+  Set oUSampleUserForm = New USampleUserForm
+  oUSampleUserForm.InitiateProperties
   
   ' Modernising
   Set FormModerniserModule.gb_colCurrentUserForms = New Collection

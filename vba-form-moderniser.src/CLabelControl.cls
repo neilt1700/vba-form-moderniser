@@ -12,17 +12,19 @@ Attribute VB_Exposed = False
 ' project.
 ' Contact: tap@commtap.org
 
+Private Const msMODULE As String = "CLabelControl"
+
 Option Explicit
 
 Public WithEvents LabelControlEvents As MSForms.Label
 Attribute LabelControlEvents.VB_VarHelpID = -1
 
-Private p_ctlSurface As MSForms.Control
+Private p_ctlSurface As MSForms.control
 Private p_ctlsUserFormControls As MSForms.Controls
 
-Private p_ctlText As MSForms.Control
-Private p_ctlBackground As MSForms.Control
-Private p_ctlBorder As MSForms.Control
+Private p_ctlText As MSForms.control
+Private p_ctlBackground As MSForms.control
+Private p_ctlBorder As MSForms.control
 
 Private p_stName As String
 
@@ -39,7 +41,7 @@ Public Property Get LabelName() As String
   LabelName = p_stName
 End Property
 
-Public Property Get ControlSurface() As MSForms.Control
+Public Property Get ControlSurface() As MSForms.control
   Set ControlSurface = p_ctlSurface
 End Property
 
@@ -56,6 +58,9 @@ End Sub
 ' - Border layer.
 '
 Public Sub CreateLayers()
+  
+  Const sSOURCE As String = "CreateLayers"
+  On Error GoTo ErrorHandler
   
   Dim stCaption As String
   Dim dblTop As Double
@@ -137,7 +142,16 @@ Public Sub CreateLayers()
     .BorderStyle = fmBorderStyleNone
     .ZOrder 0
   End With
-            
+      
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+      
 End Sub
 
 
@@ -147,6 +161,9 @@ Public Sub SetState(ByVal boolDefault As Boolean, _
                     Optional ByVal X As Double, _
                     Optional ByVal Y As Double)
 
+  Const sSOURCE As String = "SetState"
+  On Error GoTo ErrorHandler
+  
   p_boolDefault = boolDefault
   p_boolActive = False
    
@@ -187,9 +204,21 @@ Public Sub SetState(ByVal boolDefault As Boolean, _
     
   Me.SetBorderWidth
                     
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+                    
 End Sub
 
 Public Sub SetBorderWidth()
+  
+  Const sSOURCE As String = "SetBorderWidth"
+  On Error GoTo ErrorHandler
   
   Dim dblBorderWidth As Double
   
@@ -223,9 +252,18 @@ Public Sub SetBorderWidth()
     .Height = dblHeight - (dblBorderWidth * 2)
   End With
 
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+
 End Sub
 
-Private Function CreateControlSurface(ByRef ctlCommandButton As Control) As Control
+Private Function CreateControlSurface(ByRef ctlCommandButton As control) As control
 
   Dim stCaption As String
   Dim stName As String
@@ -235,10 +273,10 @@ Private Function CreateControlSurface(ByRef ctlCommandButton As Control) As Cont
   Dim dblWidth As Double
   Dim dblHeight As Double
   
-  Dim ctlSurface As Control
+  Dim ctlSurface As control
 
   With ctlCommandButton
-    stName = "VFMLabelControl_" & .Name
+    stName = g_stLABEL_CONTROL_SUFFIX & .Name
     stCaption = .Caption
     dblTop = .Top
     dblLeft = .Left
@@ -259,9 +297,13 @@ Private Function CreateControlSurface(ByRef ctlCommandButton As Control) As Cont
   
 End Function
 
+
 Public Sub InitiateProperties(ByRef ctlsUserFormControls As MSForms.Controls, _
-                              ByRef ctlCommandButton As MSForms.Control, _
+                              ByRef ctlCommandButton As MSForms.control, _
                               Optional ByVal boolDefault As Boolean = False)
+
+  Const sSOURCE As String = "InitiateProperties"
+  On Error GoTo ErrorHandler
 
   Set p_ctlsUserFormControls = ctlsUserFormControls
   
@@ -276,6 +318,13 @@ Public Sub InitiateProperties(ByRef ctlsUserFormControls As MSForms.Controls, _
   
   Me.CreateLayers
 
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+
 End Sub
-
-

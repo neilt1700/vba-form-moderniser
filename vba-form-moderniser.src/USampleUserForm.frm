@@ -63,7 +63,7 @@ Public Sub InitiateProperties()
      
   ' This converts command buttons into modern controls.
   ' The default button is the one that will run if enter is pressed.
-  Set p_oLabelControlsManager = Factory.CreateCLabelControlsManager(Me.Controls, _
+  Set p_oLabelControlsManager = VFMFactory.CreateCLabelControlsManager(Me.Controls, _
                                                                     arrLabelControlsOrder)
 
 End Sub
