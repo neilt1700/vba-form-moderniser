@@ -29,7 +29,7 @@ Public Sub CreateLayeredControls()
   Const sSOURCE As String = "CreateLayeredControls"
   On Error GoTo ErrorHandler
 
-  Dim ctlControl As control
+  Dim ctlControl As Control
   
   Dim colLabelControls As Collection
   Set colLabelControls = New Collection

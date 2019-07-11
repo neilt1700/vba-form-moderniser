@@ -1,8 +1,14 @@
 Attribute VB_Name = "FormModerniserDevUtility"
 Option Explicit
 
+' TODO:
+' Some of this could be created as a separate add-in
+' Specifics for a project would be created in project files
+' VFMUtility and ppt/excel/word specific bits could be imported if they
+' already exist.
+
 Private Const m_stFormModerniserModule As String = "FormModerniserModule.bas"
-Private Const m_stDevUtilityVersion As String = "1.2"
+Private Const m_stDevUtilityVersion As String = "1.21"
 
 Private m_stCurrentVersion As String
 Private m_boolCurrentVersionLoaded As Boolean

@@ -61,7 +61,7 @@ Public Sub CreateFrameControlResponders(Optional ByVal stNamePrefix As String)
   Const sSOURCE As String = "CreateFrameControls"
   On Error GoTo ErrorHandler
 
-  Dim ctlControl As control
+  Dim ctlControl As Control
   Set p_colFrameControls = New Collection
 
   For Each ctlControl In p_ctlsControls
@@ -89,7 +89,7 @@ Public Sub CreateKeyDownResponders()
   Const sSOURCE As String = "CreateKeyDownResponders"
   On Error GoTo ErrorHandler
  
-  Dim ctlControl As control
+  Dim ctlControl As Control
   
   FormModerniserModule.TabOverflow = 0
   FormModerniserModule.LastTabbedControl = vbNullString

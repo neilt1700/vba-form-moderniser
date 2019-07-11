@@ -45,7 +45,7 @@ ErrorHandler:
 End Sub
 
 
-Public Sub InitiateProperties(ByRef ctlFrameControl As control, _
+Public Sub InitiateProperties(ByRef ctlFrameControl As Control, _
                               ByRef oLabelControls As CLabelControls)
 
   Const sSOURCE As String = "InitiateProperties"

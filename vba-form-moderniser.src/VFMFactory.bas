@@ -13,7 +13,7 @@ Private Const msMODULE As String = "VFMFactory"
 
 ' Label Controls
 Public Function CreateCLabelControl(ByRef ctlsUserFormControls As MSForms.Controls, _
-                                    ByRef ctlLabelControl As MSForms.control, _
+                                    ByRef ctlLabelControl As MSForms.Control, _
                                     Optional ByVal boolDefault As Boolean) As CLabelControl
   Set CreateCLabelControl = New CLabelControl
   CreateCLabelControl.InitiateProperties ctlsUserFormControls:=ctlsUserFormControls, _
@@ -28,14 +28,14 @@ Public Function CreateCLabelControlResponder(ByVal oLabelControl As CLabelContro
                                                   oLabelControls:=oLabelControls
 End Function
 
-Public Function CreateCLabelControlFrameResponder(ByRef ctlFrameControl As control, _
+Public Function CreateCLabelControlFrameResponder(ByRef ctlFrameControl As Control, _
                                                   ByRef oLabelControls As CLabelControls) As CLabelControlFrameResponder
   Set CreateCLabelControlFrameResponder = New CLabelControlFrameResponder
   CreateCLabelControlFrameResponder.InitiateProperties ctlFrameControl:=ctlFrameControl, _
                                                        oLabelControls:=oLabelControls
 End Function
 
-Public Function CreateCKeyDownResponder(ByRef ctlControl As control, _
+Public Function CreateCKeyDownResponder(ByRef ctlControl As Control, _
                                         ByRef oLabelControls As CLabelControls, _
                                         ByRef ctlsControls As Controls) As CKeyDownResponder
   Set CreateCKeyDownResponder = New CKeyDownResponder

@@ -31,7 +31,7 @@ Attribute CheckBoxEvents.VB_VarHelpID = -1
 Public WithEvents TextBoxEvents As MSForms.TextBox
 Attribute TextBoxEvents.VB_VarHelpID = -1
 
-Private p_ctlControl As control
+Private p_ctlControl As Control
 Private p_oLabelControls As CLabelControls
 Private p_ctlsControls As Controls
 
@@ -42,13 +42,15 @@ Private Sub OptionButtonEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, B
 
   MyEventsKeyDown KeyCode, Shift
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -60,13 +62,15 @@ Private Sub OptionButtonEvents_MouseDown(ByVal Button As Integer, ByVal Shift As
 
   MyEventsMouseDown Button, Shift, X, Y
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -78,13 +82,15 @@ Private Sub ScrollBarEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVa
 
   MyEventsKeyDown KeyCode, Shift
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -101,13 +107,15 @@ Private Sub SpinButtonEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByV
 
   MyEventsKeyDown KeyCode, Shift
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -124,13 +132,15 @@ Private Sub ListBoxEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal 
 
   MyEventsKeyDown KeyCode, Shift
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -142,13 +152,15 @@ Private Sub ListBoxEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Inte
 
   MyEventsMouseDown Button, Shift, X, Y
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -160,13 +172,15 @@ Private Sub TabStripEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal
 
   MyEventsKeyDown KeyCode, Shift
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -178,13 +192,15 @@ Private Sub TabStripEvents_MouseDown(ByVal Index As Long, ByVal Button As Intege
 
   MyEventsMouseDown Button, Shift, X, Y
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -196,13 +212,15 @@ Private Sub CheckBoxEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal
 
   MyEventsKeyDown KeyCode, Shift
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -214,13 +232,15 @@ Private Sub CheckBoxEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Int
 
   MyEventsMouseDown Button, Shift, X, Y
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -232,13 +252,15 @@ Private Sub TextBoxEvents_KeyDown(ByVal KeyCode As MSForms.ReturnInteger, ByVal 
 
   MyEventsKeyDown KeyCode, Shift
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -250,13 +272,15 @@ Private Sub TextBoxEvents_MouseDown(ByVal Button As Integer, ByVal Shift As Inte
 
   MyEventsMouseDown Button, Shift, X, Y
   
+ErrorExit:
   Exit Sub
     
 ErrorHandler:
-  ' Run simple clean-up code here
-  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+  If bCentralErrorHandler(msMODULE, sSOURCE, , True) Then
     Stop
     Resume
+  Else
+    Resume ErrorExit
   End If
   
 End Sub
@@ -329,7 +353,7 @@ ErrorHandler:
 End Sub
 
 
-Public Sub InitiateProperties(ByRef ctlControl As control, _
+Public Sub InitiateProperties(ByRef ctlControl As Control, _
                               ByRef oLabelControls As CLabelControls, _
                               ByRef ctlsControls As Controls)
 

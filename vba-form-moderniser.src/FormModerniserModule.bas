@@ -5,12 +5,13 @@ Attribute VB_Name = "FormModerniserModule"
 ' Contact: tap@commtap.org
 
 ' Note buttons in office generally have a standard height and width.
+' TODO: have a switch to switch off form modernisation.
 
 Option Explicit
 
 Private Const msMODULE As String = "FormModerniserModule"
 
-Public Const g_stVERSION As String = "2.1-beta"
+Public Const g_stVERSION As String = "2.11-beta"
 
 ' Used for styling the label buttons.
 Private m_stDefaultButton As String
@@ -146,7 +147,7 @@ Public Sub ModerniseControls(ByRef ctlsControls As Controls)
   Const sSOURCE As String = "ModerniseControls"
   On Error GoTo ErrorHandler
 
-  Dim ctlControl As control
+  Dim ctlControl As Control
   
   For Each ctlControl In ctlsControls
     With ctlControl
@@ -225,3 +226,61 @@ Public Function SourceButtonName(ByVal stButtonName As String) As String
   End If
 End Function
 
+'Control utilities
+
+Public Function ControlHasParent(ctlControl As Object) As Boolean
+  
+  On Error GoTo ErrorHandler
+  
+  Dim stParentType As String
+  stParentType = TypeName(ctlControl.Parent)
+  ControlHasParent = True
+  
+  Exit Function
+  
+ErrorHandler:
+  ControlHasParent = False
+End Function
+
+Public Sub AbsolutePosition(ByRef ctlControl As Control, ByRef dblLeft As Double, ByRef dblTop As Double)
+
+  Const sSOURCE As String = "AbsolutePosition"
+  On Error GoTo ErrorHandler
+
+  dblLeft = ctlControl.Left
+  dblTop = ctlControl.Top
+  
+  AbsolutePositionRecurse ctlControl, dblLeft, dblTop
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
+End Sub
+
+Public Sub AbsolutePositionRecurse(ByRef ctlControl As Object, ByRef dblLeft As Double, ByRef dblTop As Double)
+
+  Const sSOURCE As String = "AbsolutePositionRecurse"
+  On Error GoTo ErrorHandler
+
+  If ControlHasParent(ctlControl) Then
+    dblLeft = dblLeft + ctlControl.Parent.Left
+    dblTop = dblTop + ctlControl.Parent.Top
+    AbsolutePositionRecurse ctlControl.Parent, dblLeft, dblTop
+  End If
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
+End Sub

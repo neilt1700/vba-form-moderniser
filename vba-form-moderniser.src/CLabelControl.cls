@@ -19,12 +19,12 @@ Option Explicit
 Public WithEvents LabelControlEvents As MSForms.Label
 Attribute LabelControlEvents.VB_VarHelpID = -1
 
-Private p_ctlSurface As MSForms.control
+Private p_ctlSurface As MSForms.Control
 Private p_ctlsUserFormControls As MSForms.Controls
 
-Private p_ctlText As MSForms.control
-Private p_ctlBackground As MSForms.control
-Private p_ctlBorder As MSForms.control
+Private p_ctlText As MSForms.Control
+Private p_ctlBackground As MSForms.Control
+Private p_ctlBorder As MSForms.Control
 
 Private p_stName As String
 
@@ -41,7 +41,7 @@ Public Property Get LabelName() As String
   LabelName = p_stName
 End Property
 
-Public Property Get ControlSurface() As MSForms.control
+Public Property Get ControlSurface() As MSForms.Control
   Set ControlSurface = p_ctlSurface
 End Property
 
@@ -96,6 +96,7 @@ Public Sub CreateLayers()
     .Left = dblLeft
     .Width = dblWidth
     .Height = dblHeight
+    .ZOrder 0
   End With
   
   ' Background
@@ -110,6 +111,7 @@ Public Sub CreateLayers()
     Else
       .BackColor = g_lngBTN_INACTIVE_BACKGROUND_COLOUR
     End If
+    .ZOrder 0
       
   End With
   
@@ -132,6 +134,7 @@ Public Sub CreateLayers()
     .Width = dblWidth
     .Height = dblTextHeight
     .TextAlign = fmTextAlignCenter
+    .ZOrder 0
   End With
   
   ' The original item is the "control surface" and should stay
@@ -263,7 +266,10 @@ ErrorHandler:
 
 End Sub
 
-Private Function CreateControlSurface(ByRef ctlCommandButton As control) As control
+Private Function CreateControlSurface(ByRef ctlCommandButton As Control) As Control
+
+  Const sSOURCE As String = "CreateControlSurface"
+  On Error GoTo ErrorHandler
 
   Dim stCaption As String
   Dim stName As String
@@ -273,13 +279,15 @@ Private Function CreateControlSurface(ByRef ctlCommandButton As control) As cont
   Dim dblWidth As Double
   Dim dblHeight As Double
   
-  Dim ctlSurface As control
+  Dim ctlSurface As Control
+  
+  AbsolutePosition ctlCommandButton, dblLeft, dblTop
 
   With ctlCommandButton
     stName = g_stLABEL_CONTROL_SUFFIX & .Name
     stCaption = .Caption
-    dblTop = .Top
-    dblLeft = .Left
+    'dblTop = .Top
+    'dblLeft = .Left
     dblWidth = .Width
     dblHeight = .Height
   End With
@@ -295,11 +303,21 @@ Private Function CreateControlSurface(ByRef ctlCommandButton As control) As cont
   
   Set CreateControlSurface = ctlSurface
   
+  Exit Function
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
 End Function
 
 
+
 Public Sub InitiateProperties(ByRef ctlsUserFormControls As MSForms.Controls, _
-                              ByRef ctlCommandButton As MSForms.control, _
+                              ByRef ctlCommandButton As MSForms.Control, _
                               Optional ByVal boolDefault As Boolean = False)
 
   Const sSOURCE As String = "InitiateProperties"
