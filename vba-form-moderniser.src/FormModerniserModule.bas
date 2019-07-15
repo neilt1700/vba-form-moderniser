@@ -11,7 +11,7 @@ Option Explicit
 
 Private Const msMODULE As String = "FormModerniserModule"
 
-Public Const g_stVERSION As String = "2.11-beta"
+Public Const g_stVERSION As String = "2.12-beta"
 
 ' Used for styling the label buttons.
 Private m_stDefaultButton As String
@@ -19,6 +19,8 @@ Private m_stActiveButton As String
 
 ' Suffix for label control surface created from a command button:
 Public Const g_stLABEL_CONTROL_SUFFIX As String = "VFMLabelControl_"
+' Any other label which is not being used as a control:
+Public Const g_stLABEL_SUFFIX As String = "VFMLabel_"
 
 ' Used to capture returns and tabbing from controls to the label buttons.
 ' Tab as in keyboard tab.
@@ -40,10 +42,16 @@ Public Const g_lngBORDER_COLOUR As Long = &HA9A9A9
 Public Const g_lngSPECIAL_EFFECT As Long = fmSpecialEffectFlat
 Public Const g_lngTEXTBOX_BORDERSTYLE As Long = fmBorderStyleSingle
 
+Public Const g_lngOUTER_FRAME_BORDER_COLOUR As Long = &HD9D9D9
+Public Const g_lngINNER_FRAME_BORDER_COLOUR As Long = &HDCDCDC
+
+
 ' Labels used as buttons specific styling
 Public Const g_dblBTN_BORDER_WIDTH As Double = 1
 Public Const g_dblBTN_DEFAULT_BORDER_WIDTH As Double = 2
 Public Const g_dblBTN_DEFAULT_ACTIVE_BORDER_WIDTH As Double = 3
+
+
 
 ' These colours apply to the options pane in PowerPoint: these colours vary
 ' between Office products.
@@ -152,13 +160,13 @@ Public Sub ModerniseControls(ByRef ctlsControls As Controls)
   For Each ctlControl In ctlsControls
     With ctlControl
       ' General:
-      .BackColor = g_lngBACK_COLOUR
+      ' .BackColor = g_lngBACK_COLOUR
     
       Select Case TypeName(ctlControl)
         Case "Label"
           .Font.Name = g_stFONT_NAME
-          .Font.Size = g_lngFONT_SIZE
-          .ForeColor = g_lngFORE_COLOUR
+          '.Font.Size = g_lngFONT_SIZE
+          '.ForeColor = g_lngFORE_COLOUR
     
         Case "TextBox"
           .Font.Name = g_stFONT_NAME
@@ -175,6 +183,8 @@ Public Sub ModerniseControls(ByRef ctlsControls As Controls)
           .BorderColor = g_lngBORDER_COLOUR
           .SpecialEffect = g_lngSPECIAL_EFFECT
           .ForeColor = g_lngFORE_COLOUR
+          'TODO: needs work:
+          'ConvertToLabel ctlsControls, ctlControl
    
         Case "CheckBox"
           .Font.Name = g_stFONT_NAME
@@ -217,6 +227,47 @@ ErrorHandler:
 
 End Sub
 
+Public Sub ConvertToLabel(ByRef ctlsControls As Controls, ByRef ctlControl As Control)
+
+  Const sSOURCE As String = "ConvertToLabel"
+  On Error GoTo ErrorHandler
+  
+  Dim ctlLabel As Control
+  
+  With ctlControl
+    Set ctlLabel = ctlsControls.Add("Forms.Label.1", g_stLABEL_SUFFIX & .Name, True)
+  
+    Select Case TypeName(ctlControl)
+      Case "Frame"
+        ctlLabel.Caption = .Caption
+        ctlLabel.Top = .Top
+        ctlLabel.Left = .Left
+        ctlLabel.Width = .Width
+        ctlLabel.Height = .Height
+        ctlLabel.BackColor = g_lngBACK_COLOUR
+        ctlLabel.BorderStyle = fmBorderStyleSingle
+        ctlLabel.BorderColor = g_lngOUTER_FRAME_BORDER_COLOUR
+        ctlLabel.Font.Name = g_stFONT_NAME
+        ctlLabel.Font.Size = g_lngFONT_SIZE
+        ctlLabel.ForeColor = g_lngFORE_COLOUR
+        ctlLabel.ZOrder 1
+    End Select
+    
+    .Visible = False
+  End With
+  
+  Exit Sub
+    
+ErrorHandler:
+  ' Run simple clean-up code here
+  If bCentralErrorHandler(msMODULE, sSOURCE) Then
+    Stop
+    Resume
+  End If
+  
+End Sub
+
+
 ' Removes the label command suffix.
 Public Function SourceButtonName(ByVal stButtonName As String) As String
   If Mid(stButtonName, 1, Len(g_stLABEL_CONTROL_SUFFIX)) = g_stLABEL_CONTROL_SUFFIX Then
@@ -226,8 +277,8 @@ Public Function SourceButtonName(ByVal stButtonName As String) As String
   End If
 End Function
 
-'Control utilities
 
+'Control utilities
 Public Function ControlHasParent(ctlControl As Object) As Boolean
   
   On Error GoTo ErrorHandler

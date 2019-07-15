@@ -8,7 +8,7 @@ Option Explicit
 ' already exist.
 
 Private Const m_stFormModerniserModule As String = "FormModerniserModule.bas"
-Private Const m_stDevUtilityVersion As String = "1.21"
+Private Const m_stDevUtilityVersion As String = "1.22"
 
 Private m_stCurrentVersion As String
 Private m_boolCurrentVersionLoaded As Boolean
@@ -234,6 +234,11 @@ Private Sub VFMImportModules()
     VFM_ImportModule stModulePath
   Next stFileName
   
+  ' Message about renaming:
+  MsgBox "One or more modules may have been renamed and now have a ""1""" & _
+         "added. You should manually rename these modules - removing the ""1"".", _
+         vbExclamation + vbOKOnly
+         
   m_boolCurrentVersionLoaded = False
 
 End Sub
