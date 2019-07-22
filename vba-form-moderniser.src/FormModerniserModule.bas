@@ -11,7 +11,7 @@ Option Explicit
 
 Private Const msMODULE As String = "FormModerniserModule"
 
-Public Const g_stVERSION As String = "2.12-beta"
+Public Const g_stVERSION As String = "2.13-beta"
 
 ' Used for styling the label buttons.
 Private m_stDefaultButton As String
@@ -51,7 +51,8 @@ Public Const g_dblBTN_BORDER_WIDTH As Double = 1
 Public Const g_dblBTN_DEFAULT_BORDER_WIDTH As Double = 2
 Public Const g_dblBTN_DEFAULT_ACTIVE_BORDER_WIDTH As Double = 3
 
-
+' Link colours
+Public Const g_lngLINK_COLOUR As Long = &H996633
 
 ' These colours apply to the options pane in PowerPoint: these colours vary
 ' between Office products.
